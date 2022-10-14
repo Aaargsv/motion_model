@@ -1,5 +1,6 @@
 from numerical import runge_kutta4
-from matplotlib import pyplot as plt
+from render_plot import render_plot
+from vpython import *
 import math
 
 if __name__ == '__main__':
@@ -10,10 +11,5 @@ if __name__ == '__main__':
     _, ys = runge_kutta4(func, h=0.1, t_bound=10.1, t0=0, x0=1)
     _, zs = runge_kutta4(func, h=0.1, t_bound=10.1, t0=0, x0=1)
 
-    figure, axis = plt.subplots(1, 3)
-
-    plt.plot(ts, xs, color="red",  linestyle='solid')
-    plt.ylabel("x(t)")
-    plt.xlabel("t")
-    plt.show()
+    render_plot(ts, xs, ys, zs)
 
