@@ -33,7 +33,7 @@ def runge_kutta4_2nd_order(func, h, t_bound, t0, s0):
     return ts.tolist(), xs, vs
 
 
-def compute_x_and_v(func, t, x, v, h, xs, vs, *args):
+def one_step(func, t, x, v, h, *args):
     r = args[0]
     k1, l1 = func(t, x, v, r)
     k2, l2 = func(t + h / 2, x + h / 2 * k1, v + h / 2 * l1, r)
@@ -56,10 +56,10 @@ def runge_kutta4_2nd_order_xyz(funcs, h, t_bound, t0, s0):
     ts = np.arange(t0, t_bound, h)
     for t in ts[0:-1]:
         r = math.sqrt(x**2 + y**2 + z**2)
-        r = 1
-        x, vx = compute_x_and_v(funcs[0], t, x, vx, h, xs, vxs, r)
-        y, vy = compute_x_and_v(funcs[1], t, y, vy, h, ys, vys, r)
-        z, vz = compute_x_and_v(funcs[1], t, z, vz, h, zs, vzs, r)
+        #r = 10
+        x, vx = one_step(funcs[0], t, x, vx, h,  r)
+        y, vy = one_step(funcs[1], t, y, vy, h,  r)
+        z, vz = one_step(funcs[2], t, z, vz, h,  r)
 
         xs.append(x)
         vxs.append(vx)
